@@ -1,0 +1,98 @@
+{
+    "name": "Free For All",
+    "tree": {
+      "$className": "DataModel",
+      "$ignoreUnknownInstances": true,
+  
+      "ReplicatedFirst": {
+        "$className": "ReplicatedFirst",
+        "$ignoreUnknownInstances": true,
+        "$path": "src/ReplicatedFirst"
+      },
+
+      "ReplicatedStorage": {
+        "$className": "ReplicatedStorage",
+        "$ignoreUnknownInstances": true,
+        "$path": "src/ReplicatedStorage"
+      },
+
+      "ServerScriptService": {
+        "$className": "ServerScriptService",
+        "$ignoreUnknownInstances": true,
+        "$path": "src/ServerScriptService"
+      },
+
+      "ServerStorage": {
+        "$className": "ServerStorage",
+        "$ignoreUnknownInstances": true,
+        "$path": "src/ServerStorage"
+      },
+
+      "StarterGui": {
+        "$className": "StarterGui",
+        "$ignoreUnknownInstances": true,
+        "$path": "src/StarterGui"
+      },
+  
+      "StarterPlayer": {
+        "$className": "StarterPlayer",
+        "$ignoreUnknownInstances": true,
+  
+        "StarterPlayerScripts": {
+          "$className": "StarterPlayerScripts",
+          "$ignoreUnknownInstances": true,
+          "$path": "src/StarterPlayer/StarterPlayerScripts"
+        },
+
+        "StarterCharacterScripts": {
+            "$className": "StarterCharacterScripts",
+            "$ignoreUnknownInstances": true,
+            "$path": "src/StarterPlayer/StarterCharacterScripts"
+          }
+      },
+
+      "Workspace": {
+        "$className": "Workspace",
+        "$ignoreUnknownInstances": true,
+        "$path": "src/Workspace"  
+      },
+
+      "Lighting": {
+        "$className": "Lighting",
+        "$ignoreUnknownInstances": true,
+        "$properties": {
+            "Ambient": {
+              "Type": "Color3",
+              "Value": [0,0,0]
+            },
+            "Brightness" : 2,
+            "ColorShift_Bottom": {
+              "Type": "Color3",
+              "Value": [0,0,0]
+            },
+            "ColorShift_Top": {
+              "Type": "Color3",
+              "Value": [0,0,0]
+            },
+            "EnvironmentDiffuseScale": 0,
+            "EnvironmentSpecularScale": 0,
+            "GlobalShadows": true,
+            "OutdoorAmbient": {
+              "Type": "Color3",
+              "Value": [1,1,1]
+            },
+            "ShadowSoftness": 0,
+            "Technology": "ShadowMap",
+            "ClockTime": 12,
+            "GeographicLatitude": 0,
+            "ExposureCompensation": 0,
+            "FogColor": {
+              "Type": "Color3",
+              "Value": [0.7098039215686275,0.8235294117647059,1]
+            },
+            "FogEnd": 100000000,
+            "FogStart": 0
+        }
+      }
+    }
+  }
