@@ -109,9 +109,6 @@ end
 
 local function onPointAdded(pointClusterFolder)
 	local points = pointClusterFolder:GetChildren()
-	local point1
-	local point2
-	local point3
 	local pointSize
 	local pointsPositionDataContainer 
 	
@@ -133,7 +130,7 @@ local function onPointAdded(pointClusterFolder)
 		
 		animatePointUpAndDown(points[1].Image)
 		
-		local newClicker = script.Clicker:Clone()
+		local newClicker = script.Parent.PointClicker:Clone()
 		newClicker.Parent = points[1].Image
 		newClicker.Disabled = false
 
@@ -161,8 +158,8 @@ local function onPointAdded(pointClusterFolder)
 		animatePointUpAndDown(points[1].Image)
 		animatePointUpAndDown(points[2].Image)
 
-		local newClicker1 = script.Clicker:Clone()
-		local newClicker2 = script.Clicker:Clone()
+		local newClicker1 = script.Parent.PointClicker:Clone()
+		local newClicker2 = script.Parent.PointClicker:Clone()
 		newClicker1.Parent = points[1].Image
 		newClicker2.Parent = points[2].Image
 		newClicker1.Disabled = false
@@ -199,9 +196,9 @@ local function onPointAdded(pointClusterFolder)
 		animatePointUpAndDown(points[2].Image)
 		animatePointUpAndDown(points[3].Image)
 		
-		local newClicker1 = script.Clicker:Clone()
-		local newClicker2 = script.Clicker:Clone()
-		local newClicker3 = script.Clicker:Clone()
+		local newClicker1 = script.Parent.PointClicker:Clone()
+		local newClicker2 = script.Parent.PointClicker:Clone()
+		local newClicker3 = script.Parent.PointClicker:Clone()
 		newClicker1.Parent = points[1].Image
 		newClicker2.Parent = points[2].Image
 		newClicker3.Parent = points[3].Image
@@ -217,7 +214,7 @@ local function onReceivePointFadedOutToClientFromServer(pointID)
 		if pointID.Parent then
 			if pointID.Parent.Image then
 				local targetImage = pointID.Parent.Image
-				for i = 1, 20 do
+				for _ = 1, 20 do
 					wait(.025)
 					if targetImage.TextLabel then
 						targetImage.ImageTransparency = targetImage.ImageTransparency + 0.05

@@ -131,12 +131,13 @@ function Point.divvyUpPoints(player, pointAward, posX, posZ, color)
 	}
 	
 	local playersChildren = game.Players:GetChildren()
-	for i, player in pairs(playersChildren) do
+	for _, plr in pairs(playersChildren) do
+		print(plr.Name)
 		local clientPointsFolder = player.PlayerGui:FindFirstChild("Points")
 		if clientPointsFolder then
 			
 			local newPointClusterContainer = Instance.new("Folder")
-			newPointClusterContainer.Name = player.Name
+			newPointClusterContainer.Name = plr.Name
 			
 			if checkIfPrime(pointAward) == true then
 				Point.new(pointAward, argsCreateNewPoint, newPointClusterContainer)
@@ -145,7 +146,7 @@ function Point.divvyUpPoints(player, pointAward, posX, posZ, color)
 				if 2 % pointAward == 0 
 					or 2 % pointAward == 2 
 				then -- Divide the point award in two
-					for i = 1,2 do
+					for _ = 1,2 do
 						Point.new(pointAward / 2, argsCreateNewPoint, newPointClusterContainer)
 					end
 					newPointClusterContainer.Parent = clientPointsFolder
