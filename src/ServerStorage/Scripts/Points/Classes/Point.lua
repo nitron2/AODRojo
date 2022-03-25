@@ -1,4 +1,7 @@
+--!strict
+
 local ServerStorage = game:GetService('ServerStorage')
+local HttpService = game:GetService('HttpService')
 local RepliactedStorage = game:GetService('ReplicatedStorage')
 local Remotes = RepliactedStorage.Remotes
 local PointsFolder = workspace.Points
@@ -120,7 +123,7 @@ function Point.calculatePointsValue(totalDamageDealt)
 	return ((finalPointAward + 0.5) - (finalPointAward + 0.5) % 1) --// Round final award up to nearest integer
 end
 
-function Point.divvyUpPoints(player, pointAward, posX, posZ, color)
+function Point.divvyUpPoints(player: Player, pointAward: number, posX: number, posZ: number, color: Color3Value)
 	local argsCreateNewPoint = {
 		player = player, 
 		color = color,
@@ -133,12 +136,13 @@ function Point.divvyUpPoints(player, pointAward, posX, posZ, color)
 	local playersChildren = game.Players:GetChildren()
 	for _, plr in pairs(playersChildren) do
 		print(plr.Name)
-		local clientPointsFolder = player.PlayerGui:FindFirstChild("Points")
+		local clientPointsFolder = plr.PlayerGui:FindFirstChild("Points")
 		if clientPointsFolder then
 			
 			local newPointClusterContainer = Instance.new("Folder")
-			newPointClusterContainer.Name = plr.Name
-			
+			newPointClusterContainer.Name = HttpService:GenerateGUID(false)
+			newPointClusterContainer:SetAttribute("PlayerName", player.Name)
+
 			if checkIfPrime(pointAward) == true then
 				Point.new(pointAward, argsCreateNewPoint, newPointClusterContainer)
 				newPointClusterContainer.Parent = clientPointsFolder
@@ -150,6 +154,7 @@ function Point.divvyUpPoints(player, pointAward, posX, posZ, color)
 						Point.new(pointAward / 2, argsCreateNewPoint, newPointClusterContainer)
 					end
 					newPointClusterContainer.Parent = clientPointsFolder
+
 				end
 			end
 		end
@@ -162,7 +167,7 @@ function Point.validateClick(player, pointID)
 			and point['ID'] == pointID
 			and point['Player'] == player 
 		then
-			local playerStats = PlayerStats:findFirstChild(player.Name)
+			local playerStats = PlayerStats:FindFirstChild(player.Name)
 			point['Clickable'] = false
 			if playerStats then
 				playerStats.Stats.Points.Value = playerStats.Stats.Points.Value + point['Points']

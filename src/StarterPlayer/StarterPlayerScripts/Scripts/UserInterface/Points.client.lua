@@ -107,7 +107,7 @@ local function setImageSize(pointImage)
 	return pointSize
 end
 
-local function onPointAdded(pointClusterFolder)
+local function onPointAdded(pointClusterFolder: Folder)
 	local points = pointClusterFolder:GetChildren()
 	local pointSize
 	local pointsPositionDataContainer 
