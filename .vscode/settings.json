@@ -16,7 +16,7 @@
     "workbench.editorAssociations": {
         "*.rbxlx": "default"
     },
-    "workbench.colorTheme": "Atom One Dark",
+    "workbench.colorTheme": "Tomorrow Night Bright",
     "editor.fontFamily": " ‘Fira Code’, Consolas, ‘Courier New’, monospace",
     "terminal.integrated.fontFamily": "monospace",
     "workbench.tree.indent": 20,
