@@ -7,7 +7,8 @@ local Tabstats = {}
 
 local player = game.Players.LocalPlayer
 local PlayerGui = player:WaitForChild("PlayerGui")
-local TabstatsFrame = PlayerGui.Tabstats.Tabstats
+local TabstatsGui = PlayerGui:WaitForChild("Tabstats")
+local TabstatsFrame = TabstatsGui.Tabstats
 local ExistingFolder = TabstatsFrame.Existing
 local listingTemplate = TabstatsFrame.Template.Template
 

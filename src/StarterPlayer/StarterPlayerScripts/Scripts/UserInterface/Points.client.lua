@@ -208,8 +208,21 @@ local function onPointAdded(pointClusterFolder: Folder)
 	end
 end
 
-local function onReceivePointFadedOutToClientFromServer(pointID)
-	local pointID = pointsFolderClient:FindFirstChild(tostring(pointID), true)
+local function onReceivePointFadedOutToClientFromServer(targetPointID)
+	local function look_rec(thisNode)
+		if #thisNode:GetChildren() == 0 then
+			return nil
+		end
+		for _,child in pairs(thisNode:GetChildren()) do
+			if child:IsA("IntValue") then
+				if child.Value == targetPointID then
+					return child
+				end
+			end
+			return look_rec(child)
+		end
+	end
+	local pointID = look_rec(pointsFolderClient)
 	if pointID then
 		if pointID.Parent then
 			if pointID.Parent.Image then

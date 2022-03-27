@@ -1,2 +1,5 @@
 # Roblox Game Files
 /*.rbxlx
+
+# Roblox lock Files
+/*.rbxlx.lock
