@@ -1,9 +1,10 @@
+--Why do we need to serialize stats in the first place? Hmm. Question for another day.
+
 local ServerStorage = game:GetService('ServerStorage')
 local PlayerDataFolder = ServerStorage.PlayerData
 local WorldStats = ServerStorage.WorldStats
 
 return function(player)	
-	
 	local serializedPlayerData = {}
 	local serializedWorldStats = {
 		Defecit = WorldStats.Defecit.Value,
@@ -14,10 +15,7 @@ return function(player)
 	local function appendCurrentPlayerData(data)
 		if data:IsA('Folder') then
 			local currentPlayerData = {
-				Stats = {
-					Damage = data.Stats.Damage.Value,
-					Points = data.Stats.Points.Value
-				},
+				Damage = data.Damage.Value,
 				AvatarIcon = data.AvatarIcon.Value,
 				Color = {data.Color.Value:ToHSV()},
 				Player = data.Player.Value
@@ -26,12 +24,10 @@ return function(player)
 		end
 	end
 
-	local function findPlayerData()
-		for _, data in pairs(PlayerDataFolder:GetChildren()) do
-			appendCurrentPlayerData(data)
-		end
+	--Find All Players' Data
+	for _, data in pairs(PlayerDataFolder:GetChildren()) do
+		appendCurrentPlayerData(data)
 	end
 	
-	findPlayerData()
 	return serializedPlayerData, serializedWorldStats
 end

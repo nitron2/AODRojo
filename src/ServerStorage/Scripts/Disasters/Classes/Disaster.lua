@@ -11,7 +11,6 @@ executioner used for 90% of the disasters.
 
 local ServerStorage = game:GetService('ServerStorage')
 local Stamina = require(ServerStorage.Scripts.Stamina.Classes.Stamina)
-local Point = require(ServerStorage.Scripts.Points.Classes.Point)
 local DisasterSpecs = require(ServerStorage.Scripts.Specs.DisasterSpecs.DisasterSpecs)
 
 local DamageScalar = ServerStorage.DamageScalar
@@ -88,7 +87,7 @@ function Disaster:dealDamage()
 	local damage = self['CurrentDamagePerPass']
 	WorldStats.Health.Value = WorldStats.Health.Value - damage
 	WorldStats.Defecit.Value = WorldStats.Defecit.Value + damage
-	self['PlayerData'].Stats.Damage.Value = self['PlayerData'].Stats.Damage.Value + damage
+	self['PlayerData'].Damage.Value += damage
 	self['TotalDamageDealt'] = self['TotalDamageDealt'] + damage
 	return damage
 end
@@ -165,11 +164,6 @@ function Disaster:performPasses()
 		coroutine.wrap(function() self:displayDamage(damageDealt) end)()
 		wait(self['TimeBetweenPasses'])
 	end
-end
-
-function Disaster:initPoints()
-	local pointAward = Point.calculatePointsValue(self['TotalDamageDealt'])
-	Point.divvyUpPoints(self['Player'], pointAward, self['PositionInWorld']['X'], self['PositionInWorld']['Z'], self['Color'])
 end
 
 return Disaster

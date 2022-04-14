@@ -12,7 +12,6 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerStorage = game:GetService("ServerStorage")
 local PlayerData = ServerStorage.PlayerData
-local Point = require(ServerStorage.Scripts.Points.Classes.Point)
 local FootprintsTable = require(ReplicatedStorage.Scripts.FootprintCheck.FootprintsTable)
 
 local updateCurrentDisaster = require(ServerStorage.Scripts.Disasters["UpdateCurrentDisaster"])
@@ -30,16 +29,12 @@ Remotes["ValidateDisaster"].OnServerEvent:Connect(function(player, mouseHit, cli
 	validateDisaster(player, mouseHit, clientActivatedAreas)
 end) 
 
-Remotes["PointClickPlayer"].OnServerEvent:Connect(function(player, pointID)
-	Point.validateClick(player, pointID)
-end)
-
 Remotes["CheckFootprintQuery"].OnServerInvoke = function(player, mouseX, mouseZActual, footprintsToSearchFor)
 	return FootprintsTable:checkFootprintQuery(mouseX, mouseZActual, footprintsToSearchFor)
 end
 
 Remotes["GetStats"].OnServerInvoke = function(player)
-	return packageStats(player, ServerStorage, PlayerData)
+	return packageStats(player)
 end
 
 Remotes["SerializeStats"].OnServerInvoke = function(player)

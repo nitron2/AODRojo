@@ -61,7 +61,7 @@ function WorldHealth.updateGui()
 			currentPlayerBar.ArrayPosition.Value = i
 			totalSizeOfPreviousBars = getTotalSizeOfPreviousBars(currentPlayerData, i) --put current bar at position end of last (sum of all current bars' size) save for this own
 			currentPlayerBar.Position = UDim2.new(totalSizeOfPreviousBars,0,0,0)
-			currentPlayerBar.Size = UDim2.new(currentPlayerData.Stats.Damage / worldStats.Defecit,0,1,0) 
+			currentPlayerBar.Size = UDim2.new(currentPlayerData.Damage / worldStats.Defecit,0,1,0) 
 		end
 		removeOldBars()
 	end

@@ -1,44 +1,39 @@
+local ServerStorage = game:GetService('ServerStorage')
+local PlayerData = ServerStorage.PlayerData
+local WorldStats = ServerStorage.WorldStats
+
 local statistics = {
-	['PlayerStats'] = {
-		['Points'] = {},
-		['Damage'] = {},
-		['Color'] = {},
+	PlayerStats = {
+		--[[{Player = nil,
+		AvatarIcon = nil,
+		Color = nil,
+		Damage = nil}]]--
 	},
-	['WorldStats'] = {
-		['Health'] = nil,
-		['Defecit'] = nil,
-		['Max'] = nil
+	WorldStats = {
+		Health = nil,
+		Defecit = nil,
+		Max = nil
 	}
 }
 
-return function(player, ServerStorage, PlayerData)
-	local localPlayerDataSetPoints
-	local localPlayerDataSetDamage
-	local worldStatsInstance = ServerStorage.WorldStats
-	
+return function(player)
 	local playerDataContents = PlayerData:GetChildren()
-	if playerDataContents and #playerDataContents > 0 then
-		for i, v in pairs(playerDataContents) do
-			statistics['PlayerStats']['Points'][i] = {v.Player.Value, v.Stats.Points.Value, v.Color.Value, nil, v.Stats.Damage.Value, v.AvatarIcon.Value} --// Send damage along with points so that the game can display them.
-			statistics['PlayerStats']['Damage'][i] = {v.Player.Value, v.Stats.Damage.Value, v.Color.Value, nil} 
-			
-			if statistics['PlayerStats']['Points'][i][1] == player then
-				localPlayerDataSetPoints = statistics['PlayerStats']['Points'][i]
-			end
-			if statistics['PlayerStats']['Damage'][i][1] == player then
-				localPlayerDataSetDamage = statistics['PlayerStats']['Damage'][i]
-			end
 
-			--print(i .. ": " .. tostring(stats['PlayerStats']['Damage'][i][1]) .. " | " .. tostring(stats['PlayerStats']['Damage'][i][2])) --players in order
+	if playerDataContents and #playerDataContents > 0 then
+		for _, playerData : Folder in pairs(playerDataContents) do
+			table.insert(statistics.PlayerStats, {
+				Player = playerData.Player.Value,
+				AvatarIcon = playerData.AvatarIcon.Value,
+				Color = playerData.Color.Value,
+				Damage = playerData.Damage.Value
+			})
 		end 
-		
-		table.sort(statistics['PlayerStats']['Points'], function(a,b) return a[2] > b[2] end) 
 		table.sort(statistics['PlayerStats']['Damage'], function(a,b) return a[2] > b[2] end)
 	end
 	
-	statistics['WorldStats']['Health'] = worldStatsInstance.Health.Value
-	statistics['WorldStats']['Defecit'] = worldStatsInstance.Defecit.Value
-	statistics['WorldStats']['Max'] = worldStatsInstance.Max.Value
+	statistics['WorldStats']['Health'] = WorldStats.Health.Value
+	statistics['WorldStats']['Defecit'] = WorldStats.Defecit.Value
+	statistics['WorldStats']['Max'] = WorldStats.Max.Value
 	
-	return statistics, localPlayerDataSetPoints, localPlayerDataSetDamage
+	return statistics
 end

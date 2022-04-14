@@ -16,7 +16,7 @@
     "workbench.editorAssociations": {
         "*.rbxlx": "default"
     },
-    "workbench.colorTheme": "Default Light+",
+    "workbench.colorTheme": "Monokai",
     "editor.fontFamily": " ‘Fira Code’, Consolas, ‘Courier New’, monospace",
     "terminal.integrated.fontFamily": "monospace",
     "workbench.tree.indent": 20,

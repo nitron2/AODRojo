@@ -118,7 +118,6 @@ function AcidRain:run(playerStamina)
 	self:removeModel()
 	newFootprint:setGeometry(self['TotalDamageDealt'])
 	newFootprint:show()
-	self:initPoints()
 end
 
 return AcidRain
