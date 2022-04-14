@@ -107,11 +107,8 @@ local function setImageSize(pointImage)
 	return pointSize
 end
 
-local function onPointAdded(pointClusterFolder)
+local function onPointAdded(pointClusterFolder: Folder)
 	local points = pointClusterFolder:GetChildren()
-	local point1
-	local point2
-	local point3
 	local pointSize
 	local pointsPositionDataContainer 
 	
@@ -133,7 +130,7 @@ local function onPointAdded(pointClusterFolder)
 		
 		animatePointUpAndDown(points[1].Image)
 		
-		local newClicker = script.Clicker:Clone()
+		local newClicker = script.Parent.PointClicker:Clone()
 		newClicker.Parent = points[1].Image
 		newClicker.Disabled = false
 
@@ -161,8 +158,8 @@ local function onPointAdded(pointClusterFolder)
 		animatePointUpAndDown(points[1].Image)
 		animatePointUpAndDown(points[2].Image)
 
-		local newClicker1 = script.Clicker:Clone()
-		local newClicker2 = script.Clicker:Clone()
+		local newClicker1 = script.Parent.PointClicker:Clone()
+		local newClicker2 = script.Parent.PointClicker:Clone()
 		newClicker1.Parent = points[1].Image
 		newClicker2.Parent = points[2].Image
 		newClicker1.Disabled = false
@@ -199,9 +196,9 @@ local function onPointAdded(pointClusterFolder)
 		animatePointUpAndDown(points[2].Image)
 		animatePointUpAndDown(points[3].Image)
 		
-		local newClicker1 = script.Clicker:Clone()
-		local newClicker2 = script.Clicker:Clone()
-		local newClicker3 = script.Clicker:Clone()
+		local newClicker1 = script.Parent.PointClicker:Clone()
+		local newClicker2 = script.Parent.PointClicker:Clone()
+		local newClicker3 = script.Parent.PointClicker:Clone()
 		newClicker1.Parent = points[1].Image
 		newClicker2.Parent = points[2].Image
 		newClicker3.Parent = points[3].Image
@@ -211,13 +208,26 @@ local function onPointAdded(pointClusterFolder)
 	end
 end
 
-local function onReceivePointFadedOutToClientFromServer(pointID)
-	local pointID = pointsFolderClient:FindFirstChild(tostring(pointID), true)
+local function onReceivePointFadedOutToClientFromServer(targetPointID)
+	local function look_rec(thisNode)
+		if #thisNode:GetChildren() == 0 then
+			return nil
+		end
+		for _,child in pairs(thisNode:GetChildren()) do
+			if child:IsA("IntValue") then
+				if child.Value == targetPointID then
+					return child
+				end
+			end
+			return look_rec(child)
+		end
+	end
+	local pointID = look_rec(pointsFolderClient)
 	if pointID then
 		if pointID.Parent then
 			if pointID.Parent.Image then
 				local targetImage = pointID.Parent.Image
-				for i = 1, 20 do
+				for _ = 1, 20 do
 					wait(.025)
 					if targetImage.TextLabel then
 						targetImage.ImageTransparency = targetImage.ImageTransparency + 0.05

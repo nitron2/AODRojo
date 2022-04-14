@@ -9,7 +9,7 @@ local function onMouseEnterPoint()
 	local point = pointImage.Parent
 	local pointFolder = point.Parent
 	
-	if player.Name == tostring(pointFolder.Name) then	
+	if player.Name == pointFolder:GetAttribute("PlayerName") then	
 		local ID = point:FindFirstChild("ID")
 
 		Remotes["PointClickPlayer"]:FireServer(ID.Value)

@@ -15,7 +15,7 @@ repeat
 until (SecondsValue.Value == 0)
 
 ServerStorage.GameStages.PreGame.Value = false
-SecondsValue.Value = 120
+SecondsValue.Value = 500
 ServerStorage.GameStages.InProg.Value = true
 Remotes.UpdateClientsGameState:FireAllClients("InProg")
 
