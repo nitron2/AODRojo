@@ -24,5 +24,5 @@
 
     1. CRTL+S on build.rbxlx
     2. In VSCode -> Terminal > New Terminal
-    3. Type "remodel run .\PullAssets.lua" 
+    3. Type "remodel run .\PullAssets^WS.lua" 
     4. 
