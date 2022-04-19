@@ -10,6 +10,7 @@ local Fire = require(ServerStorage.Scripts.Disasters.Classes.Fire)
 local Lightning = require(ServerStorage.Scripts.Disasters.Classes.Lightning)
 local Tsunami = require(ServerStorage.Scripts.Disasters.Classes.Tsunami)
 local AcidRain = require(ServerStorage.Scripts.Disasters.Classes.AcidRain)
+local TropicalStorm = require(ServerStorage.Scripts.Disasters.Classes.TropicalStorm)
 
 local Validations = require(ReplicatedStorage.Scripts.Validations.Validations)
 
@@ -99,6 +100,8 @@ return function(player, mouseHit)
 				if Validations.isCoast(activatedAreas) then
 					newDisaster = Tsunami.new(player, playerData, currentDisasterSpecs, activatedAreas, mouseHit)
 				end
+			elseif currentDisaster == "TropicalStorm" then
+				newDisaster = TropicalStorm.new(player, playerData, currentDisasterSpecs, activatedAreas, mouseHit)
 			end
 			if newDisaster then
 				newDisaster:run(playerStamina)
