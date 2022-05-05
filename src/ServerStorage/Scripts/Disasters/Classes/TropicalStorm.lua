@@ -70,7 +70,7 @@ function TropicalStorm:setCurrentDamageBasedOnMultiplier()
 	return
 end
 
-function TropicalStorm:getModel()
+function TropicalStorm:getModel() --MAYBE WANT TO CHANGE STORM HEIGHT BASED OFF OF MODEL TO GET THAT EYE OF THE STROM  MAKING SENSE
 	if Validations.isCoast(self.AreasPresent) then
 		return TropicalStormAssets.TropicalStorm_Big:Clone()
 	end
@@ -93,10 +93,12 @@ end
 **--]]
 
 function TropicalStorm:positionModel(modelToPlace)
-	local randomAngle = CFrame.Angles(0, math.random(-360, 360), 0)
+	local randomAngle = CFrame.Angles(0, 0, math.random(-360, 360))
+	local rotation = CFrame.Angles(math.rad(90), 0, 0)
 	local X = self['PositionInWorld']['X']
 	local Z = self['PositionInWorld']['Z']
-	modelToPlace:SetPrimaryPartCFrame(CFrame.new(X, GridSpecs.Y_MAP_LEVEL, Z) * randomAngle)
+	modelToPlace:PivotTo(CFrame.new(X, GridSpecs.Y_MAP_LEVEL, Z) * rotation)
+	--modelToPlace:SetPrimaryPartCFrame(CFrame.new(0,0,0))--(CFrame.new(X, GridSpecs.Y_MAP_LEVEL, Z)) --* randomAngle)
 end
 
 --function soundHandler()
@@ -109,15 +111,16 @@ end
 function TropicalStorm:animate()
 
 	local TweenService = game:GetService("TweenService")
-	local spininfo = TweenInfo.new(2,Enum.EasingStyle.Linear)
+	local spininfo = TweenInfo.new(15,Enum.EasingStyle.Linear)
 	local model = self.Model
 	
 	local function turnPart(part : BasePart)
-		local Spin1 = TweenService:Create(part,spininfo,{CFrame = part.CFrame * CFrame.Angles(math.rad(90),math.rada(120),0)})
-		local Spin2 = TweenService:Create(part,spininfo,{CFrame = part.CFrame * CFrame.Angles(math.rad(90),math.rad(240),0)})
-		local Spin3 = TweenService:Create(part,spininfo,{CFrame = part.CFrame * CFrame.Angles(math.rad(90),math.rad(360),0)})
+		local Spin1 = TweenService:Create(part,spininfo,{CFrame = part.CFrame * CFrame.Angles(0,0,math.rad(-120))})
+		local Spin2 = TweenService:Create(part,spininfo,{CFrame = part.CFrame * CFrame.Angles(0,0,math.rad(-240))})
+		local Spin3 = TweenService:Create(part,spininfo,{CFrame = part.CFrame * CFrame.Angles(0,0,math.rad(-360))})
 		
 		Spin1:Play()
+		print("playing")
 		Spin1.Completed:Connect(
 			function()
 				Spin2:Play() 
@@ -135,12 +138,12 @@ function TropicalStorm:animate()
 		)
 	end
 
-	turnPart(model.MainPart)
-	--for _,part in pairs(model.MainPart:GetChildren()) do
---		if part:IsA("BasePart") then
---			coroutine.wrap(function() turnPart(part) end)()
---		end
----	end
+	coroutine.wrap(function() turnPart(model.MainPart) end)()
+	for _,part in pairs(model.MainPart:GetChildren()) do
+		if part:IsA("BasePart") then
+			coroutine.wrap(function() turnPart(part) end)()
+		end
+	end
 
 end
 
@@ -154,7 +157,7 @@ function TropicalStorm:run(playerStamina)
 	self['Model'] = self:getModel()
 	self:positionModel(self['Model'])
 	self:placeModel()
-	--coroutine.wrap(function() self:animate() end)()
+	coroutine.wrap(function() self:animate() end)()
 	newFootprint = Footprint.new(self)
 	self:performPasses()
 	--// Resize Footprint if the currentDamage changes; 

@@ -5,7 +5,7 @@ local Remotes = ReplicatedStorage.Remotes
 local SecondsValue = ServerStorage.GameStages.Seconds
 
 ServerStorage.GameStages.PreGame.Value = true
-SecondsValue.Value = 5
+SecondsValue.Value = 10
 Remotes.UpdateClientsGameState:FireAllClients("Pregame")
 
 repeat 
